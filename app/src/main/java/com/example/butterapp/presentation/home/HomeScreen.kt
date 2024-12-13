@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.butterapp.domain.post.PostScreenType
 import com.example.butterapp.presentation.post.PostScreen
 import com.example.butterapp.presentation.post.PostViewModel
+import com.example.butterapp.shared_component.GuestScreen
 
 @Composable
 fun HomeScreen() {
@@ -40,14 +41,14 @@ fun HomeScreen() {
         val pagerState = rememberPagerState {
             tabItems.size
         }
+        val allViewModel = hiltViewModel<PostViewModel>()
+
         LaunchedEffect(selectedTabIndex.intValue) {
             pagerState.animateScrollToPage(selectedTabIndex.intValue)
         }
         LaunchedEffect(pagerState.currentPage) {
             selectedTabIndex.intValue = pagerState.currentPage
         }
-
-        val allViewModel = hiltViewModel<PostViewModel>()
         LaunchedEffect(true) {
             allViewModel.onBuild(PostScreenType.ALL)
         }
@@ -90,11 +91,10 @@ fun HomeScreen() {
                 ) {
                     if (index == 0) {
                         PostScreen(
-                            type = PostScreenType.ALL,
                             viewModel = allViewModel,
                         )
                     } else {
-                        Text(text = tabItems[index])
+                        GuestScreen()
                     }
                 }
             }

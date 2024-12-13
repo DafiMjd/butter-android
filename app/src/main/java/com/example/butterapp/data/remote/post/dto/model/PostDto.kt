@@ -1,9 +1,8 @@
-package com.example.butterapp.data.remote.post.dto.post
+package com.example.butterapp.data.remote.post.dto.model
 
 import com.example.butterapp.common.helper.DateHelper
-import com.example.butterapp.data.remote.user.dto.UserDto
+import com.example.butterapp.data.remote.user.dto.model.UserDto
 import com.example.butterapp.domain.post.Post
-import com.example.butterapp.domain.user.User
 
 data class PostDto(
     val id: String,
@@ -19,8 +18,8 @@ fun PostDto.toPost(): Post {
         id = id,
         userId = userId,
         content = content,
-        createdAt = DateHelper.parse(createdAt),
-        updatedAt = DateHelper.parse(updatedAt),
+        createdAt = DateHelper.toZonedDateTime(createdAt),
+        updatedAt = DateHelper.toZonedDateTime(updatedAt),
         user = user
     )
 }

@@ -6,4 +6,5 @@ sealed class Screen(
 ) {
     data object HomeScreen : Screen("home_screen")
     data object ProfileScreen : Screen("profile_screen")
+    data object SearchScreen : Screen("search_screen")
 }

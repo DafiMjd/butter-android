@@ -1,14 +1,13 @@
-package com.example.butterapp.presentation.post
+package com.example.butterapp.presentation.search
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.butterapp.common.ViewData
-import com.example.butterapp.data.remote.post.dto.model.ParamGetPosts
-import com.example.butterapp.data.remote.post.dto.model.toPost
-import com.example.butterapp.data.repository.PostRepository
-import com.example.butterapp.domain.post.Post
-import com.example.butterapp.domain.post.PostScreenType
+import com.example.butterapp.data.remote.user.dto.model.ParamGetUsers
+import com.example.butterapp.data.remote.user.dto.model.toUser
+import com.example.butterapp.data.repository.UserRepository
+import com.example.butterapp.domain.user.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,16 +17,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PostViewModel @Inject constructor(
-    private val repo: PostRepository,
+class SearchViewModel @Inject constructor(
+    private val repo: UserRepository
 ) : ViewModel() {
-    private val _param = mutableStateOf(ParamGetPosts.createInstance())
 
-    private val _type = mutableStateOf(PostScreenType.ALL)
-    val type get() = _type.value
+    private val _param = mutableStateOf(ParamGetUsers.createInstance())
 
-    private val _posts = MutableStateFlow(listOf<Post>())
-    val posts get() = _posts.asStateFlow()
+    private val _users = MutableStateFlow(listOf<User>())
+    val users get() = _users.asStateFlow()
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading get() = _isLoading.asStateFlow()
@@ -41,32 +38,32 @@ class PostViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing get() = _isRefreshing.asStateFlow()
 
-    fun onBuild(screenType: PostScreenType) {
-        _type.value = screenType
-        getPosts()
+
+    fun onBuild() {
+        getUsers()
     }
 
     fun onRefresh() {
         viewModelScope.launch {
             _isRefreshing.value = true
-            _param.value = ParamGetPosts.createInstance()
-            _posts.value = listOf()
-            getPosts()
+            _param.value = ParamGetUsers.createInstance()
+            _users.value = listOf()
+            getUsers()
             _isRefreshing.value = false
         }
     }
 
     fun loadMore() {
         viewModelScope.launch {
-            if (_posts.value.isNotEmpty()) {
-                getPosts()
+            if (_users.value.isNotEmpty()) {
+                getUsers()
             }
         }
     }
 
-    fun getPosts() {
+    fun getUsers() {
         viewModelScope.launch {
-            repo.getPosts(_param.value).onEach { it ->
+            repo.getUsers(_param.value).onEach { it ->
                 when (it) {
                     is ViewData.Error -> {
                         _isLoading.value = false
@@ -80,14 +77,14 @@ class PostViewModel @Inject constructor(
 
                     is ViewData.Success -> {
                         _isLoading.value = false
-                        val newPosts = it.data?.data?.docs?.map { it.toPost() }
-                        if (newPosts != null) {
-                            val updatedPosts = _posts.value + newPosts
-                            _posts.value = updatedPosts
+                        val newUsers = it.data?.data?.docs?.map { it.toUser() }
+                        if (newUsers != null) {
+                            val updatedData = _users.value + newUsers
+                            _users.value = updatedData
                         }
                         _errorMessage.value = ""
                         _param.value = _param.value.nextParam()
-                        _isAllLoaded.value = newPosts?.isEmpty() ?: true
+                        _isAllLoaded.value = newUsers?.isEmpty() ?: true
                     }
                 }
             }.launchIn(viewModelScope)

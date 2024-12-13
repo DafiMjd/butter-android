@@ -1,12 +1,9 @@
 package com.example.butterapp.data.repository
 
 import com.example.butterapp.common.ViewData
-import com.example.butterapp.data.remote.BaseResponseDto
-import com.example.butterapp.data.remote.ResultDocsDto
 import com.example.butterapp.data.remote.post.dto.PostApi
 import com.example.butterapp.data.remote.post.dto.PostResponse
-import com.example.butterapp.data.remote.post.dto.post.ParamGetPosts
-import com.example.butterapp.data.remote.post.dto.post.PostDto
+import com.example.butterapp.data.remote.post.dto.model.ParamGetPosts
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

@@ -1,7 +1,4 @@
-package com.example.butterapp.data.remote.post.dto.post
-
-import com.example.butterapp.common.ViewData
-import com.example.butterapp.common.ViewData.Error
+package com.example.butterapp.data.remote.post.dto.model
 
 data class ParamGetPosts(
     val limit: Int = 10,

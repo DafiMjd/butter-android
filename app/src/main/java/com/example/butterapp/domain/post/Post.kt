@@ -1,8 +1,7 @@
 package com.example.butterapp.domain.post
 
-import com.example.butterapp.data.remote.user.dto.UserDto
+import com.example.butterapp.data.remote.user.dto.model.UserDto
 import java.time.ZonedDateTime
-import java.util.Date
 
 data class Post(
     val id: String,

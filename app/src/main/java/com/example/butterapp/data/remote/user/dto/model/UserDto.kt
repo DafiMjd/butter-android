@@ -1,5 +1,6 @@
-package com.example.butterapp.data.remote.user.dto
+package com.example.butterapp.data.remote.user.dto.model
 
+import com.example.butterapp.common.helper.DateHelper
 import com.example.butterapp.domain.user.User
 
 data class UserDto(
@@ -19,9 +20,9 @@ fun UserDto.toUser(): User {
         username = username,
         name = name,
         email = email,
-        birthDate = birthDate,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
+        birthDate = DateHelper.toLocalDate(birthDate),
+        createdAt = DateHelper.toZonedDateTime(createdAt),
+        updatedAt = DateHelper.toZonedDateTime(updatedAt),
         isFollowed = isFollowed
     )
 }

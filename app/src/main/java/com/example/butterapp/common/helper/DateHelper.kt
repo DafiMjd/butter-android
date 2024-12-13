@@ -1,23 +1,19 @@
 package com.example.butterapp.common.helper
 
-import android.icu.text.SimpleDateFormat
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.OffsetDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import java.util.Locale
-import java.util.TimeZone
 
 class DateHelper {
     companion object {
-        fun parse(
+        fun toZonedDateTime(
             string: String,
             dateFormat: String = "yyyy-MM-dd HH:mm:ss",
-            timeZone: TimeZone = TimeZone.getTimeZone("UTC"),
+            timeZone: ZoneId = ZoneId.of("UTC"),
         ): ZonedDateTime? {
             try {
                 val date = string.substringBefore("T")
@@ -26,9 +22,8 @@ class DateHelper {
                 val timeServerFormatter = DateTimeFormatter.ofPattern(dateFormat, Locale.ENGLISH)
 
                 val utcDateTime = LocalDateTime.parse(
-                    "$date $time",
-                    timeServerFormatter
-                ).atZone(ZoneId.of("UTC"))
+                    "$date $time", timeServerFormatter
+                ).atZone(timeZone)
 
                 val localDateTime = utcDateTime.withZoneSameInstant(ZoneId.systemDefault())
 
@@ -38,6 +33,21 @@ class DateHelper {
                 return localDateTime
             } catch (e: Exception) {
                 return null
+            }
+        }
+
+        fun toLocalDate(
+            string: String?,
+            dateFormat: String = "yyyy-MM-dd",
+        ): LocalDate? {
+            if (string == null) {
+                return null
+            }
+            return try {
+                val format = DateTimeFormatter.ofPattern(dateFormat, Locale.ENGLISH)
+                LocalDate.parse(string, format)
+            } catch (e: Exception) {
+                null
             }
         }
 

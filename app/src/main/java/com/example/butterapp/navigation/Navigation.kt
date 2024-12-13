@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.butterapp.presentation.home.HomeScreen
 import com.example.butterapp.presentation.profile.ProfileScreen
+import com.example.butterapp.presentation.search.SearchScreen
 
 @Composable
 fun Navigation(
@@ -30,6 +31,11 @@ fun Navigation(
             route = Screen.ProfileScreen.route
         ) {
             ProfileScreen()
+        }
+        composable(
+            route = Screen.SearchScreen.route
+        ) {
+            SearchScreen()
         }
     }
 }
