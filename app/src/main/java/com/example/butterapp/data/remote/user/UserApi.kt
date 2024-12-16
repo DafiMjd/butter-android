@@ -1,9 +1,9 @@
-package com.example.butterapp.data.remote.user.dto
+package com.example.butterapp.data.remote.user
 
 import com.example.butterapp.data.remote.BaseResponseDto
 import com.example.butterapp.data.remote.ResultDocDto
 import com.example.butterapp.data.remote.ResultDocsDto
-import com.example.butterapp.data.remote.user.dto.model.UserDto
+import com.example.butterapp.data.remote.user.model.UserDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

@@ -1,8 +1,8 @@
-package com.example.butterapp.data.remote.post.dto.model
+package com.example.butterapp.data.remote.post.model
 
 import com.example.butterapp.common.helper.DateHelper
-import com.example.butterapp.data.remote.user.dto.model.UserDto
-import com.example.butterapp.data.remote.user.dto.model.toUser
+import com.example.butterapp.data.remote.user.model.UserDto
+import com.example.butterapp.data.remote.user.model.toUser
 import com.example.butterapp.domain.post.Post
 
 data class PostDto(

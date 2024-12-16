@@ -1,4 +1,4 @@
-package com.example.butterapp.data.remote.post.dto.model
+package com.example.butterapp.data.remote.post.model
 
 data class ParamGetPosts(
     val limit: Int = 10,

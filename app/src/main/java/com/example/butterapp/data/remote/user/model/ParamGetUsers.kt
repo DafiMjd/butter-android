@@ -1,4 +1,4 @@
-package com.example.butterapp.data.remote.user.dto.model
+package com.example.butterapp.data.remote.user.model
 
 data class ParamGetUsers(
     val limit: Int = 10,

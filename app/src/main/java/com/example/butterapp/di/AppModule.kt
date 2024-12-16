@@ -1,7 +1,7 @@
 package com.example.butterapp.di
 
-import com.example.butterapp.data.remote.post.dto.PostApi
-import com.example.butterapp.data.remote.user.dto.UserApi
+import com.example.butterapp.data.remote.post.PostApi
+import com.example.butterapp.data.remote.user.UserApi
 import com.example.butterapp.data.repository.PostRepository
 import com.example.butterapp.data.repository.UserRepository
 import com.example.cryptocurrencyapp.common.Constants

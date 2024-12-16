@@ -1,4 +1,4 @@
-package com.example.butterapp.data.remote.user.dto.model
+package com.example.butterapp.data.remote.user.model
 
 import com.example.butterapp.common.helper.DateHelper
 import com.example.butterapp.domain.user.User
