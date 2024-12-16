@@ -9,6 +9,7 @@ import com.example.butterapp.data.remote.user.dto.model.toUser
 import com.example.butterapp.data.repository.UserRepository
 import com.example.butterapp.domain.user.User
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -49,6 +50,7 @@ class SearchViewModel @Inject constructor(
             _param.value = ParamGetUsers.createInstance()
             _users.value = listOf()
             getUsers()
+            delay(500L)
             _isRefreshing.value = false
         }
     }

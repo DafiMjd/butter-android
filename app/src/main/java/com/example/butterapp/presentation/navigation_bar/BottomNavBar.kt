@@ -60,7 +60,6 @@ fun BottomNavBar(
                 selected = isSelected,
                 onClick = {
                     if (item.route != currentDestination?.route) {
-
                         navController.navigate(item.route) {
                             // Pop up to the start destination of the graph to
                             // avoid building up a large stack of destinations
@@ -86,7 +85,6 @@ fun BottomNavBar(
                             restoreState = true
                         }
                     }
-
                 },
                 icon = {
                     Icon(

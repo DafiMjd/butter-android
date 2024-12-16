@@ -2,6 +2,7 @@ package com.example.butterapp.data.remote.post.dto.model
 
 import com.example.butterapp.common.helper.DateHelper
 import com.example.butterapp.data.remote.user.dto.model.UserDto
+import com.example.butterapp.data.remote.user.dto.model.toUser
 import com.example.butterapp.domain.post.Post
 
 data class PostDto(
@@ -20,6 +21,6 @@ fun PostDto.toPost(): Post {
         content = content,
         createdAt = DateHelper.toZonedDateTime(createdAt),
         updatedAt = DateHelper.toZonedDateTime(updatedAt),
-        user = user
+        user = user.toUser()
     )
 }

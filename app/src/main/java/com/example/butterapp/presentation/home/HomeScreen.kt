@@ -17,17 +17,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.butterapp.domain.post.PostScreenType
 import com.example.butterapp.presentation.post.PostScreen
 import com.example.butterapp.presentation.post.PostViewModel
 import com.example.butterapp.shared_component.GuestScreen
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navController: NavController,
+) {
     val homeViewModel = hiltViewModel<HomeViewModel>()
     Box(
         modifier = Modifier.fillMaxSize()
@@ -91,6 +93,7 @@ fun HomeScreen() {
                 ) {
                     if (index == 0) {
                         PostScreen(
+                            navController = navController,
                             viewModel = allViewModel,
                         )
                     } else {
@@ -100,10 +103,4 @@ fun HomeScreen() {
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HomeScreen()
 }

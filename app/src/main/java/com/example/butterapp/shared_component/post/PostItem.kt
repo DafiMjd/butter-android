@@ -1,5 +1,6 @@
 package com.example.butterapp.shared_component.post
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,18 +24,28 @@ import com.example.butterapp.shared_component.VerticalGap
 @Composable
 fun PostItem(
     post: Post,
+    onClick: () -> Unit,
+    onClickProfile: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp, vertical = 12.dp)
+            .clickable {
+                onClick()
+            }
     ) {
         Row {
             Icon(
                 imageVector = Icons.Filled.Person,
                 contentDescription = "profile_pic",
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier
+                    .size(48.dp)
+                    .clickable {
+                        onClickProfile()
+                    }
+
             )
             HorizontalGap(width = 8)
             Column(
@@ -43,7 +54,11 @@ fun PostItem(
                 Row {
                     Text(
                         text = post.user?.username ?: "",
-                        fontWeight = FontWeight.W600
+                        fontWeight = FontWeight.W600,
+                        modifier = Modifier
+                            .clickable {
+                                onClickProfile()
+                            }
                     )
                     HorizontalGap(width = 8)
                     Text(

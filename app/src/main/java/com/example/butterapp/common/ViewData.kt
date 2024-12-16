@@ -47,11 +47,11 @@
 
 package com.example.butterapp.common
 
-sealed class ViewData<T>(
+open class ViewData<T>(
     val data: T? = null,
     private val _message: String? = null,
 ) {
-    class Success<T>(data: T) : ViewData<T>(data)
+    class Success<T>(data: T? = null) : ViewData<T>(data)
     class Error<T>(message: String, data: T? = null) :
         ViewData<T>(data, message)
     class Loading<T>(data: T? = null) : ViewData<T>(data)

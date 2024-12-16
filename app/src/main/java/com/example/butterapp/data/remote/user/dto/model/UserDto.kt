@@ -11,7 +11,9 @@ data class UserDto(
     val birthDate: String,
     val createdAt: String,
     val updatedAt: String,
-    val isFollowed: Boolean
+    val isFollowed: Boolean,
+    val followersCount: Int,
+    val followingsCount: Int,
 )
 
 fun UserDto.toUser(): User {
@@ -23,6 +25,8 @@ fun UserDto.toUser(): User {
         birthDate = DateHelper.toLocalDate(birthDate),
         createdAt = DateHelper.toZonedDateTime(createdAt),
         updatedAt = DateHelper.toZonedDateTime(updatedAt),
-        isFollowed = isFollowed
+        isFollowed = isFollowed,
+        followersCount = followersCount,
+        followingsCount = followingsCount,
     )
 }

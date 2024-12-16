@@ -7,3 +7,7 @@ data class ResultDocsDto<T>(
     val totalDocs: Int,
     val totalPages: Int,
 )
+
+data class ResultDocDto<T>(
+    val doc: T,
+)
