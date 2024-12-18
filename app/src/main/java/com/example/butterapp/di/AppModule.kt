@@ -1,7 +1,9 @@
 package com.example.butterapp.di
 
+import com.example.butterapp.data.remote.connection.ConnectionApi
 import com.example.butterapp.data.remote.post.PostApi
 import com.example.butterapp.data.remote.user.UserApi
+import com.example.butterapp.data.repository.ConnectionRepository
 import com.example.butterapp.data.repository.PostRepository
 import com.example.butterapp.data.repository.UserRepository
 import com.example.cryptocurrencyapp.common.Constants
@@ -46,5 +48,22 @@ object AppModule {
     @Singleton
     fun provideUserRepository(api: UserApi): UserRepository {
         return UserRepository(api)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideConnectionApi(): ConnectionApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ConnectionApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideConnectionRepository(api: ConnectionApi): ConnectionRepository {
+        return ConnectionRepository(api)
     }
 }

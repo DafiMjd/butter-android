@@ -1,4 +1,4 @@
-package com.example.butterapp.presentation.search.component
+package com.example.butterapp.shared_component.user
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -14,11 +14,16 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.butterapp.domain.user.User
+import com.example.butterapp.shared_component.GuestDialog
 import com.example.butterapp.shared_component.HorizontalGap
 import com.example.butterapp.shared_component.PrimaryButton
 import com.example.butterapp.shared_component.VerticalGap
@@ -29,6 +34,8 @@ fun UserItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var isShowDialog by remember { mutableStateOf(false) }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -59,7 +66,10 @@ fun UserItem(
                 HorizontalGap(width = 8)
                 PrimaryButton(
                     text = "Follow",
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        isShowDialog = true
+                    },
+                    secondary = user.isFollowed,
                     padding = PaddingValues(
                         vertical = 1.dp, horizontal = 16.dp,
                     ),
@@ -69,6 +79,11 @@ fun UserItem(
             HorizontalDivider(
                 thickness = 1.dp, modifier = Modifier.padding(start = 56.dp)
             )
+        }
+        if (isShowDialog) {
+            GuestDialog {
+                isShowDialog = false
+            }
         }
     }
 }

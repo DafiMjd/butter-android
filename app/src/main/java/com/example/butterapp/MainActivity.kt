@@ -59,7 +59,6 @@ class MainActivity : ComponentActivity() {
                     Box(modifier = Modifier.padding(contentPadding)) {
                         Navigation(
                             navController = navController,
-//                        contentPadding = contentPadding,
                         )
                     }
                 }

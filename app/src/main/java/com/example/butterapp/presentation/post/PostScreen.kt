@@ -133,7 +133,8 @@ fun PostScreen(
                 errorMessage = errorMessage,
                 onRetry = {
                     viewModel.onRefresh()
-                }
+                },
+                modifier = Modifier.align(Alignment.Center)
             )
         } else if (isLoading) {
             CircularProgressIndicator(

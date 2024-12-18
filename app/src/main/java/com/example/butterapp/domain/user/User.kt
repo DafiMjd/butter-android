@@ -15,5 +15,5 @@ data class User(
     val followersCount: Int = 0,
     val followingsCount: Int = 0,
 ) {
-    val hasConnection = this.followersCount != 0 && this.followingsCount != 0
+    val hasConnection = this.followersCount != 0 || this.followingsCount != 0
 }

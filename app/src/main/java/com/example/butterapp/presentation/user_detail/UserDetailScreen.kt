@@ -47,7 +47,6 @@ fun UserDetailScreen(
     username: String,
     name: String,
 ) {
-
     var isShowBottomSheet by remember { mutableStateOf(false) }
 
     val viewModel = hiltViewModel<UserDetailViewModel>()
@@ -178,6 +177,8 @@ fun UserDetailScreen(
 
             if (isShowBottomSheet) {
                 UserDetailConnectionBottomSheet(
+                    userId = user.id,
+                    navController = navController,
                     onDismissRequest = {
                         isShowBottomSheet = false
                     }

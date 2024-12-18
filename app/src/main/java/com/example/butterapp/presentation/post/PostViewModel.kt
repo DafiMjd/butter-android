@@ -4,8 +4,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.butterapp.common.ViewData
-import com.example.butterapp.data.remote.post.dto.model.ParamGetPosts
-import com.example.butterapp.data.remote.post.dto.model.toPost
+import com.example.butterapp.data.remote.post.model.ParamGetPosts
+import com.example.butterapp.data.remote.post.model.toPost
 import com.example.butterapp.data.repository.PostRepository
 import com.example.butterapp.domain.post.Post
 import com.example.butterapp.domain.post.PostScreenType

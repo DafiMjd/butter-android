@@ -1,7 +1,6 @@
 package com.example.butterapp.presentation.search
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.butterapp.navigation.Screen
-import com.example.butterapp.presentation.search.component.UserItem
+import com.example.butterapp.shared_component.user.UserItem
 import com.example.butterapp.shared_component.ErrorComponent
 import com.example.butterapp.shared_component.VerticalGap
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -68,60 +67,63 @@ fun SearchScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(vertical = 16.dp, horizontal = 8.dp)
-        ) {
-            Text(
-                text = "Search",
-                style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier.fillMaxWidth()
-            )
-            VerticalGap(height = 16)
-            if (users.isNotEmpty()) {
-                PullToRefreshBox(isRefreshing = isRefreshing, onRefresh = {
-                    scope.launch {
-                        viewModel.onRefresh()
-                    }
-                }) {
-                    LazyColumn(
-                        state = listState,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxSize(),
-                    ) {
-                        items(users.size) { index ->
-                            val user = users[index]
-                            UserItem(
-                                user,
-                                onClick = {
-                                    navController.navigate(
-                                        Screen.UserDetailScreen.route.plus(
-                                            "/${user.id}/${user.username}/${user.name}"
-                                        )
+
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 16.dp, horizontal = 8.dp)
+    ) {
+        Text(
+            text = "Search",
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier.fillMaxWidth()
+        )
+        VerticalGap(height = 16)
+        if (users.isNotEmpty()) {
+            PullToRefreshBox(isRefreshing = isRefreshing, onRefresh = {
+                scope.launch {
+                    viewModel.onRefresh()
+                }
+            }) {
+                LazyColumn(
+                    state = listState,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    items(users.size) { index ->
+                        val user = users[index]
+                        UserItem(
+                            user,
+                            onClick = {
+                                navController.navigate(
+                                    Screen.UserDetailScreen.route.plus(
+                                        "/${user.id}/${user.username}/${user.name}"
                                     )
-                                }
-                            )
-                        }
-                        if (isLoading) {
-                            item {
-                                CircularProgressIndicator()
+                                )
                             }
+                        )
+                    }
+                    if (isLoading) {
+                        item {
+                            CircularProgressIndicator()
                         }
                     }
                 }
-            } else if (errorMessage.isNotEmpty()) {
-                ErrorComponent(
-                    errorMessage = errorMessage,
-                    onRetry = {
-                        viewModel.getUsers()
-                    }
-                )
-            } else if (isLoading) {
-                CircularProgressIndicator()
             }
+        } else if (errorMessage.isNotEmpty()) {
+            ErrorComponent(
+                errorMessage = errorMessage,
+                onRetry = {
+                    viewModel.getUsers()
+                }
+            )
+        } else if (isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .weight(1f)
+            )
         }
     }
 }

@@ -4,9 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.butterapp.common.ViewData
-import com.example.butterapp.data.remote.post.dto.model.ParamGetPosts
-import com.example.butterapp.data.remote.post.dto.model.toPost
-import com.example.butterapp.data.remote.user.dto.model.toUser
+import com.example.butterapp.data.remote.post.model.ParamGetPosts
+import com.example.butterapp.data.remote.post.model.toPost
+import com.example.butterapp.data.remote.user.model.toUser
 import com.example.butterapp.data.repository.PostRepository
 import com.example.butterapp.data.repository.UserRepository
 import com.example.butterapp.domain.post.Post
@@ -38,10 +38,13 @@ class UserDetailViewModel @Inject constructor(
     val isRefreshing get() = _isRefreshing.asStateFlow()
 
     private val _paramPosts = mutableStateOf(ParamGetPosts.createInstance())
+
     private val _postsViewStatus = MutableStateFlow(ViewData<Void>())
     val postsViewStatus get() = _postsViewStatus.asStateFlow()
+
     private val _posts = MutableStateFlow(listOf<Post>())
     val posts get() = _posts.asStateFlow()
+
     private val _isAllLoaded = MutableStateFlow(false)
     val isAllLoaded get() = _isAllLoaded.asStateFlow()
 
@@ -113,11 +116,11 @@ class UserDetailViewModel @Inject constructor(
             postRepo.getPosts(_paramPosts.value).onEach { it ->
                 when (it) {
                     is ViewData.Error -> {
-                        _userViewStatus.value = ViewData.Error(it.message)
+                        _postsViewStatus.value = ViewData.Error(it.message)
                     }
 
                     is ViewData.Loading -> {
-                        _userViewStatus.value = ViewData.Loading()
+                        _postsViewStatus.value = ViewData.Loading()
                     }
 
                     is ViewData.Success -> {
@@ -126,6 +129,7 @@ class UserDetailViewModel @Inject constructor(
                             val updatedPosts = _posts.value + newPosts
                             _posts.value = updatedPosts
                         }
+                        _postsViewStatus.value = ViewData.Success()
                         _paramPosts.value = _paramPosts.value.nextParam()
                         _isAllLoaded.value = newPosts?.isEmpty() ?: true
                     }
