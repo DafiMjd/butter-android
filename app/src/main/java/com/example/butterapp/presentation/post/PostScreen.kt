@@ -1,13 +1,18 @@
 package com.example.butterapp.presentation.post
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,8 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.butterapp.domain.user.User
 import com.example.butterapp.navigation.Screen
 import com.example.butterapp.shared_component.ErrorComponent
+import com.example.butterapp.shared_component.PrimaryButton
+import com.example.butterapp.shared_component.VerticalGap
 import com.example.butterapp.shared_component.post.PostItem
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -32,7 +40,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun PostScreen(
     navController: NavController,
-    viewModel: PostViewModel
+    viewModel: PostViewModel,
+    user: User? = null,
 ) {
     val posts by viewModel.posts.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
@@ -140,6 +149,37 @@ fun PostScreen(
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
             )
+        } else {
+            if (user?.followingsCount == 0) {
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .fillMaxSize()
+                        .padding(horizontal = 16.dp),
+                ) {
+                    Text(
+                        text = "You have no followings yet",
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                    VerticalGap(height = 8)
+                    PrimaryButton(
+                        text = "Explore",
+                        onClick = {
+                            /* TODO */
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                }
+            } else {
+                Text(
+                    text = "No post",
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
         }
     }
 }

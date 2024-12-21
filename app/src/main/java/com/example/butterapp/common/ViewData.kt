@@ -51,9 +51,10 @@ open class ViewData<T>(
     val data: T? = null,
     private val _message: String? = null,
 ) {
+    class Initial<T>() : ViewData<T>()
     class Success<T>(data: T? = null) : ViewData<T>(data)
     class Error<T>(message: String, data: T? = null) :
-        ViewData<T>(data, message)
+        ViewData<T>(data = data, _message = message)
     class Loading<T>(data: T? = null) : ViewData<T>(data)
 
     val message: String
@@ -64,4 +65,22 @@ open class ViewData<T>(
 
             return _message
         }
+
+    val isLoading: Boolean
+        get() {
+            return this is Loading
+        }
+    val isError: Boolean
+        get() {
+            return this is Error
+        }
+    val isSuccess: Boolean
+        get() {
+            return this is Success
+        }
+    val isInitial: Boolean
+        get() {
+            return this is Initial
+        }
+
 }

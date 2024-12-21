@@ -1,14 +1,12 @@
-package com.example.butterapp.presentation.user_detail.component
+package com.example.butterapp.shared_component.user
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,13 +18,12 @@ import androidx.compose.ui.unit.dp
 import com.example.butterapp.common.ViewData
 import com.example.butterapp.domain.user.User
 import com.example.butterapp.shared_component.HorizontalGap
-import com.example.butterapp.shared_component.PrimaryButton
 import com.example.butterapp.shared_component.VerticalGap
 
 @Composable
-fun UserDetailHeaderComponent(
+fun <T>UserDetailHeaderComponent(
     user: User,
-    userViewStatus: ViewData<Void>,
+    userViewStatus: ViewData<T>,
     onTapConnection: () -> Unit,
 ) {
     Column {
@@ -47,7 +44,7 @@ fun UserDetailHeaderComponent(
                 Text(
                     text = user.username,
                 )
-                if (userViewStatus is ViewData.Success) {
+                if (userViewStatus.isSuccess) {
                     VerticalGap(height = 16)
                     Row(
                         modifier = Modifier.clickable {
@@ -76,16 +73,5 @@ fun UserDetailHeaderComponent(
                 modifier = Modifier.size(48.dp)
             )
         }
-        VerticalGap(height = 16)
-        PrimaryButton(
-            text = "Follow",
-            onClick = { /*TODO*/ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-        )
-        VerticalGap(height = 16)
-        HorizontalDivider(thickness = 1.dp)
-        VerticalGap(height = 16)
     }
 }

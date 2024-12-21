@@ -95,4 +95,12 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.material3)
 
+    // Room
+    implementation (libs.androidx.room.runtime)
+    annotationProcessor (libs.androidx.room.compiler)
+    ksp (libs.androidx.room.compiler)
+    implementation (libs.androidx.room.ktx)
+
+    // Icons
+    implementation(libs.androidx.material.icons.extended.android)
 }

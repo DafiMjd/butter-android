@@ -8,12 +8,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +46,9 @@ fun HomeScreen(
         val pagerState = rememberPagerState {
             tabItems.size
         }
-        val allViewModel = hiltViewModel<PostViewModel>()
+        val allViewModel = hiltViewModel<PostViewModel>(key = "all")
+        val followingViewModel = hiltViewModel<PostViewModel>(key = "following")
+        val userViewData by followingViewModel.userViewData.collectAsState()
 
         LaunchedEffect(selectedTabIndex.intValue) {
             pagerState.animateScrollToPage(selectedTabIndex.intValue)
@@ -53,6 +58,7 @@ fun HomeScreen(
         }
         LaunchedEffect(true) {
             allViewModel.onBuild(PostScreenType.ALL)
+            followingViewModel.onBuild(PostScreenType.FOLLOWING)
         }
 
         Column(
@@ -97,7 +103,20 @@ fun HomeScreen(
                             viewModel = allViewModel,
                         )
                     } else {
-                        GuestScreen()
+                        if (userViewData.isLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.align(Alignment.Center),
+                            )
+                        } else if (userViewData.isError) {
+                            GuestScreen(navController)
+                        } else if (userViewData.isSuccess) {
+                            val user = userViewData.data
+                            PostScreen(
+                                navController = navController,
+                                viewModel = followingViewModel,
+                                user = user,
+                            )
+                        }
                     }
                 }
             }

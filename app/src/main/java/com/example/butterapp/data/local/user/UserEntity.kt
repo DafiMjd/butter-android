@@ -1,10 +1,14 @@
-package com.example.butterapp.data.remote.user.model
+package com.example.butterapp.data.local.user
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.butterapp.common.helper.DateHelper
-import com.example.butterapp.data.local.user.UserEntity
+import com.example.butterapp.data.remote.user.model.UserDto
 import com.example.butterapp.domain.user.User
 
-data class UserDto(
+@Entity
+data class UserEntity (
+    @PrimaryKey
     val id: String,
     val username: String,
     val name: String,
@@ -17,7 +21,7 @@ data class UserDto(
     val followingsCount: Int,
 )
 
-fun UserDto.toUser(): User {
+fun UserEntity.toUser(): User {
     return User(
         id = id,
         username = username,
@@ -26,21 +30,6 @@ fun UserDto.toUser(): User {
         birthDate = DateHelper.toLocalDate(birthDate),
         createdAt = DateHelper.toZonedDateTime(createdAt),
         updatedAt = DateHelper.toZonedDateTime(updatedAt),
-        isFollowed = isFollowed,
-        followersCount = followersCount,
-        followingsCount = followingsCount,
-    )
-}
-
-fun UserDto.toUserEntity(): UserEntity {
-    return UserEntity(
-        id = id,
-        username = username,
-        name = name,
-        email = email,
-        birthDate = birthDate,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
         isFollowed = isFollowed,
         followersCount = followersCount,
         followingsCount = followingsCount,

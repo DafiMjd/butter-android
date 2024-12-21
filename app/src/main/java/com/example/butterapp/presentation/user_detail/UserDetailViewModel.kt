@@ -1,4 +1,4 @@
-package com.example.butterapp.presentation.user_detail.view_model
+package com.example.butterapp.presentation.user_detail
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

@@ -22,4 +22,9 @@ interface UserApi {
     suspend fun getUser(
         @Path("userId") userId: String,
     ): UserResponse
+    
+    @GET("v1/butter/user-username")
+    suspend fun getUserByUsername(
+        @Query("username") username: String,
+    ): UserResponse
 }

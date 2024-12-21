@@ -9,9 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 
 @Composable
-fun GuestDialog(onDismissRequest: () -> Unit) {
+fun GuestDialog(
+    navController: NavController,
+    onDismissRequest: () -> Unit
+) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
             modifier = Modifier
@@ -20,7 +24,7 @@ fun GuestDialog(onDismissRequest: () -> Unit) {
                 .padding(16.dp),
             shape = RoundedCornerShape(16.dp),
         ) {
-            GuestScreen()
+            GuestScreen(navController)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.butterapp.presentation.user_detail.component
+package com.example.butterapp.shared_component.user
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.butterapp.domain.connection.ConnectionType
-import com.example.butterapp.presentation.user_detail.view_model.ConnectionViewModel
+import com.example.butterapp.shared_component.user.view_model.ConnectionViewModel
 import com.example.butterapp.ui.theme.DarkGray
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,7 +28,7 @@ fun UserDetailConnectionBottomSheet(
     onDismissRequest: () -> Unit,
     navController: NavController,
 ) {
-    val connectionViewModel = hiltViewModel<ConnectionViewModel>()
+    val connectionViewModel = hiltViewModel<ConnectionViewModel>(key = userId)
     val tabItems = listOf(
         ConnectionType.FOLLOWER, ConnectionType.FOLLOWING
     )

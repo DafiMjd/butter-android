@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.butterapp.presentation.auth.register.completion.RegisterCompletionScreen
+import com.example.butterapp.presentation.auth.register.username.RegisterUsernameScreen
 import com.example.butterapp.presentation.home.HomeScreen
 import com.example.butterapp.presentation.post_detail.PostDetail
 import com.example.butterapp.presentation.profile.ProfileScreen
@@ -13,13 +15,10 @@ import com.example.butterapp.presentation.user_detail.UserDetailScreen
 @Composable
 fun Navigation(
     navController: NavHostController,
-//    contentPadding: PaddingValues,
 ) {
     NavHost(
         navController = navController,
         startDestination = Screen.HomeScreen.route,
-//        modifier = Modifier
-//            .padding(contentPadding)
     ) {
         composable(
             Screen.HomeScreen.route
@@ -36,7 +35,7 @@ fun Navigation(
         composable(
             Screen.ProfileScreen.route
         ) {
-            ProfileScreen()
+            ProfileScreen(navController)
         }
         composable(
             Screen.PostDetailScreen.route.plus(Screen.PostDetailScreen.objectPath),
@@ -60,6 +59,21 @@ fun Navigation(
                     userId,
                     username ?: "",
                     name ?: "",
+                )
+            }
+        }
+        composable(
+            Screen.RegisterUsernameScreen.route
+        ) {
+            RegisterUsernameScreen(navController)
+        }
+        composable(
+            Screen.RegisterCompletionScreen.route.plus(Screen.RegisterCompletionScreen.objectPath),
+        ) {
+            val username = it.arguments?.getString(Screen.RegisterCompletionScreen.objectName)
+            username?.let {
+                RegisterCompletionScreen(
+                    navController = navController, username
                 )
             }
         }

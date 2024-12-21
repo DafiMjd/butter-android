@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.butterapp.domain.user.User
 import com.example.butterapp.shared_component.GuestDialog
 import com.example.butterapp.shared_component.HorizontalGap
@@ -30,6 +31,7 @@ import com.example.butterapp.shared_component.VerticalGap
 
 @Composable
 fun UserItem(
+    navController: NavController,
     user: User,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -81,7 +83,7 @@ fun UserItem(
             )
         }
         if (isShowDialog) {
-            GuestDialog {
+            GuestDialog(navController) {
                 isShowDialog = false
             }
         }

@@ -95,7 +95,8 @@ fun SearchScreen(
                     items(users.size) { index ->
                         val user = users[index]
                         UserItem(
-                            user,
+                            navController = navController,
+                            user = user,
                             onClick = {
                                 navController.navigate(
                                     Screen.UserDetailScreen.route.plus(

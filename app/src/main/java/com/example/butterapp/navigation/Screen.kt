@@ -17,6 +17,14 @@ sealed class Screen(
         "user_detail_screen",
         objectPath = "/{userId}/{username}/{name}",
     )
+    data object RegisterUsernameScreen : Screen(
+        "register_username_screen",
+    )
+    data object RegisterCompletionScreen : Screen(
+        "register_completion_screen",
+        objectName = "username",
+        objectPath = "/{username}",
+    )
 
     companion object {
         val mainScreen = listOf(

@@ -4,11 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -18,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,6 +32,7 @@ import com.example.butterapp.navigation.Navigation
 import com.example.butterapp.navigation.Screen
 import com.example.butterapp.presentation.navigation_bar.BottomNavBar
 import com.example.butterapp.presentation.navigation_bar.BottomNavBarViewModel
+import com.example.butterapp.shared_component.MyOutlinedTextField
 import com.example.butterapp.ui.theme.ButterAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -72,31 +78,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     ButterAppTheme {
-        Scaffold(
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(
-                            "Butter",
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    },
-                )
-            },
-        ) { contentPadding ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding)
-                    .padding(horizontal = 8.dp)
-            )
-        }
+        Icon(
+            imageVector = Icons.Filled.Clear,
+            contentDescription = "clear",
+            tint = Color.Red,
+            modifier = Modifier
+                .size(24.dp)
+                .clickable {
+//                                viewModel.updateUsername("text")
+                }
+
+        )
     }
 }

@@ -11,15 +11,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.butterapp.navigation.Screen
 
 @Composable
-fun GuestScreen() {
+fun GuestScreen(
+    navController: NavController,
+) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
     ) {
-        Button(onClick = { /*TODO*/ }) {
+        Button(
+            onClick = {
+                navController.navigate(
+                    route = Screen.RegisterUsernameScreen.route
+                )
+            },
+        ) {
             Text(
                 text = "Create Your Account"
             )

@@ -1,4 +1,4 @@
-package com.example.butterapp.presentation.user_detail.component
+package com.example.butterapp.shared_component.user
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,9 +19,8 @@ import androidx.navigation.NavController
 import com.example.butterapp.common.ViewData
 import com.example.butterapp.domain.connection.ConnectionType
 import com.example.butterapp.navigation.Screen
-import com.example.butterapp.presentation.user_detail.view_model.ConnectionViewModel
+import com.example.butterapp.shared_component.user.view_model.ConnectionViewModel
 import com.example.butterapp.shared_component.ErrorComponent
-import com.example.butterapp.shared_component.user.UserItem
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 
@@ -64,7 +63,8 @@ fun UserDetailUsersComponent(
                 items(users.size) { index ->
                     val user = users[index]
                     UserItem(
-                        user,
+                        navController = navController,
+                        user = user,
                         onClick = {
                             navController.navigate(
                                 Screen.UserDetailScreen.route.plus(

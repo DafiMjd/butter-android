@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -29,11 +30,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.butterapp.common.ViewData
 import com.example.butterapp.navigation.Screen
-import com.example.butterapp.presentation.user_detail.component.UserDetailConnectionBottomSheet
-import com.example.butterapp.presentation.user_detail.component.UserDetailHeaderComponent
-import com.example.butterapp.presentation.user_detail.view_model.UserDetailViewModel
+import com.example.butterapp.shared_component.user.UserDetailConnectionBottomSheet
+import com.example.butterapp.shared_component.user.UserDetailHeaderComponent
 import com.example.butterapp.shared_component.ErrorComponent
+import com.example.butterapp.shared_component.PrimaryButton
 import com.example.butterapp.shared_component.TopAppBarComponent
+import com.example.butterapp.shared_component.VerticalGap
 import com.example.butterapp.shared_component.post.PostItem
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -114,6 +116,21 @@ fun UserDetailScreen(
                                 isShowBottomSheet = true
                             }
                         )
+                    }
+                    item {
+                        Column {
+                            VerticalGap(height = 16)
+                            PrimaryButton(
+                                text = "Follow",
+                                onClick = { /*TODO*/ },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp)
+                            )
+                            VerticalGap(height = 16)
+                            HorizontalDivider(thickness = 1.dp)
+                            VerticalGap(height = 16)
+                        }
                     }
                     if (posts.isNotEmpty()) {
                         items(posts.size) { index ->

@@ -1,4 +1,4 @@
-package com.example.butterapp.presentation.user_detail.view_model
+package com.example.butterapp.shared_component.user.view_model
 
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
